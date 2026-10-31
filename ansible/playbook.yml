@@ -1,0 +1,18 @@
+---
+- name: Configuration et vérification de l'environnement WordPress E-commerce
+  hosts: wordpress_servers
+  gather_facts: yes
+
+  tasks:
+    - name: Afficher un message de confirmation
+      ansible.builtin.debug:
+        msg: "Ansible communique avec succès sur l'hôte : {{ inventory_hostname }}"
+
+    - name: Vérifier que Docker est installé et actif
+      ansible.builtin.shell: docker --version
+      register: docker_version
+      changed_when: false
+
+    - name: Afficher la version de Docker détectée
+      ansible.builtin.debug:
+        msg: "{{ docker_version.stdout }}"
